@@ -8,5 +8,21 @@
     "packages": [
       "packages/*"
     ]
+  },
+  "scripts": {
+    "compile:web": "yarn workspace @wirc/web build",
+    "compile:api": "yarn workspace @wirc/api build",
+    "compile:common": "yarn workspace @wirc/common build",
+    
+    "start:web": "yarn workspace @wirc/web start",
+    "start:api": "yarn workspace @wirc/api start",
+    "start:common": "yarn workspace @wirc/common start",
+
+    "compile": "npm-run-all compile:common compile:api compile:web",
+    "start": "concurrently \"yarn start:common\" \"yarn start:api\" \"yarn start:web\""
+  },
+  "devDependencies": {
+    "concurrently": "^5.1.0",
+    "npm-run-all": "^4.1.5"
   }
 }
