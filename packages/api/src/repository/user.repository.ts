@@ -1,5 +1,4 @@
-import { User } from "../domain/user/user";
-import { UserAlreadyRegister } from "../domain/user/user-already-register";
+import { User, UserAlreadyRegister } from "@wirc/common";
 
 export type RegisterData = Omit<User, "id">;
 
