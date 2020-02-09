@@ -4,9 +4,22 @@ const { isEmpty } = require("sidekicker/lib/comparable");
 const moment = require("moment");
 
 const validatorSchema = {
-  email: emailStr => isEmail(emailStr),
-  birthDate: date => moment(date, "YYYY-MM-DD").isBefore(new Date(), "day"),
-  nickname: nick => isNickname(nick)
+  email: emailStr => {
+    const messages = [];
+    if (isEmail(emailStr)) {
+      messages.push("emptyEmail");
+    }
+    const isValid = isEmail(emailStr);
+    if (!isValid) {
+      messages.push("invalidEmail");
+    }
+    return { valid: isValid, messages };
+  },
+  birthDate: date => ({
+    valid: moment(date, "YYYY-MM-DD").isBefore(new Date(), "day"),
+    messages: ["invalidDate"]
+  }),
+  nickname: nick => ({ valid: isNickname(nick), messages: ["invalidNickname"] })
 };
 
 test("valid user", () => {
@@ -15,7 +28,7 @@ test("valid user", () => {
       { email: "test@gmail.com", birthDate: "1970-01-11", nickname: "g4rcez" },
       validatorSchema
     )
-  ).toBe(true);
+  ).toEqual({ valid: true, validations: [] });
 });
 
 test("user with invalid email", () => {
@@ -24,5 +37,8 @@ test("user with invalid email", () => {
       { email: "test-gmail.com", birthDate: "1970-01-11", nickname: "g4rcez" },
       validatorSchema
     )
-  ).toEqual(false);
+  ).toEqual({
+    valid: false,
+    validations: [{ key: "email", messages: ["invalidEmail"], valid: false }]
+  });
 });
