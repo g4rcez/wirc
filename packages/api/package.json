@@ -4,18 +4,41 @@
   "main": "build/index.js",
   "license": "MIT",
   "devDependencies": {
+    "@types/cors": "^2.8.6",
     "@types/express": "^4.17.2",
+    "@types/helmet": "^0.0.45",
+    "@types/socket.io": "^2.1.4",
     "@types/uuid": "^3.4.7",
+    "concurrently": "^5.1.0",
     "jest": "^25.1.0",
+    "nodemon": "^2.0.2",
+    "npm-run-all": "^4.1.5",
     "ts-node": "^8.6.2",
     "tslib": "^1.10.0",
     "typescript": "^3.7.5"
   },
   "dependencies": {
     "@wirc/common": "*",
+    "cors": "^2.8.5",
     "express": "^4.17.1",
+    "helmet": "^3.21.2",
     "moment": "^2.24.0",
+    "socket.io": "^2.3.0",
     "typeorm": "^0.2.22",
     "uuid": "^3.4.0"
+  },
+  "scripts": {
+    "dev": "node build/",
+    "compile": "tsc",
+    "build": "rm -rf build && tsc",
+    "serve": "node dist/index.js",
+    "node-mon": "nodemon dist/index.js",
+    "start": "concurrently -k -p \"[{name}]\" -n \"TypeScript,Node\" -c \"yellow.bold,cyan.bold,green.bold\" \"npm run ts-mon\" \"npm run node-mon\"",
+    "test": "jest",
+    "test-mon": "npm run test -- --watchAll",
+    "ts-mon": "tsc -w",
+    "debug": "npm run build && npm run debug-mon",
+    "serve-debug": "nodemon --inspect dist/index.js",
+    "debug-mon": "concurrently -k -p \"[{name}]\" -n \"TypeScript,Node\" -c \"yellow.bold,cyan.bold,green.bold\" \"npm run watch-sass\" \"npm run ts-mon\" \"npm run serve-debug\""
   }
 }
