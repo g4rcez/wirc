@@ -9,6 +9,8 @@
     "typescript": "^3.7.5"
   },
   "scripts": {
-    "test": "jest"
+    "test": "jest",
+    "start": "tsc -w",
+    "build": "rm -rf build && tsc"
   }
 }
