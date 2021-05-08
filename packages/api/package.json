@@ -24,7 +24,7 @@
     "helmet": "^3.21.2",
     "moment": "^2.24.0",
     "socket.io": "^2.3.0",
-    "typeorm": "^0.2.22",
+    "typeorm": "^0.2.25",
     "uuid": "^3.4.0"
   },
   "scripts": {
