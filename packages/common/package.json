@@ -4,7 +4,7 @@
   "main": "build/index.js",
   "license": "MIT",
   "dependencies": {
-    "moment": "^2.24.0",
+    "moment": "^2.29.4",
     "sidekicker": "^0.0.28",
     "typescript": "^3.7.5"
   },
